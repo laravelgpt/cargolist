@@ -70,20 +70,20 @@ const DocumentView: React.FC<DocumentViewProps> = ({
         <table className="w-full text-sm text-left text-gray-700 border border-collapse border-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-100 print:bg-gray-100">
             <tr>
-              <th className="border border-gray-400 px-4 py-2 w-16 text-center" style={headingStyle}>ক্রমিক</th>
-              <th className="border border-gray-400 px-4 py-2" style={headingStyle}>বিবরণ</th>
-              <th className="border border-gray-400 px-4 py-2 w-32" style={headingStyle}>পরিমান</th>
-              <th className="border border-gray-400 px-4 py-2" style={headingStyle}>মন্তব্য</th>
+              <th className="border border-gray-400 px-4 py-2 w-16 text-center font-bold" style={headingStyle}>ক্রমিক</th>
+              <th className="border border-gray-400 px-4 py-2 font-bold" style={headingStyle}>বিবরণ</th>
+              <th className="border border-gray-400 px-4 py-2 w-32 font-bold" style={headingStyle}>পরিমান</th>
+              <th className="border border-gray-400 px-4 py-2 font-bold" style={headingStyle}>মন্তব্য</th>
               {isEditable && <th className="border border-gray-400 px-2 py-2 w-12 text-center no-print"></th>}
             </tr>
           </thead>
           <tbody>
             {tableData.map((row) => (
               <tr key={row.id} className="bg-white hover:bg-gray-50/50 group">
-                <td className="border border-gray-400 text-center"><Cell className={`${editableCellClass} text-center`} value={row.serial} onSave={(val) => onTableCellChange(row.id, 'serial', val)} /></td>
+                <td className="border border-gray-400 text-center"><Cell className={`${editableCellClass} text-center font-bold`} value={row.serial} onSave={(val) => onTableCellChange(row.id, 'serial', val)} /></td>
                 <td className="border border-gray-400"><Cell className={`${editableCellClass} font-bold`} value={row.description} onSave={(val) => onTableCellChange(row.id, 'description', val)} /></td>
-                <td className="border border-gray-400"><Cell className={`${editableCellClass}`} value={row.quantity} onSave={(val) => onTableCellChange(row.id, 'quantity', val)} /></td>
-                <td className="border border-gray-400"><Cell className={`${editableCellClass}`} value={row.remarks} onSave={(val) => onTableCellChange(row.id, 'remarks', val)} /></td>
+                <td className="border border-gray-400"><Cell className={`${editableCellClass} font-bold`} value={row.quantity} onSave={(val) => onTableCellChange(row.id, 'quantity', val)} /></td>
+                <td className="border border-gray-400"><Cell className={`${editableCellClass} font-bold`} value={row.remarks} onSave={(val) => onTableCellChange(row.id, 'remarks', val)} /></td>
                 {isEditable && 
                   <td className="border border-gray-400 text-center no-print">
                     <button onClick={() => onDeleteRow(row.id)} className="p-2 text-red-500 rounded-full opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity hover:bg-red-100" aria-label="Delete row">
@@ -103,20 +103,20 @@ const DocumentView: React.FC<DocumentViewProps> = ({
               <div key={row.id} className="bg-white p-4 rounded-lg border border-gray-300 relative group">
                   <div className="flex justify-between items-start">
                       <div className="font-bold text-gray-800 pr-10">
-                          <Cell className={`${editableCellClass}`} value={row.description} onSave={(val) => onTableCellChange(row.id, 'description', val)} />
+                          <Cell className={`${editableCellClass} font-bold`} value={row.description} onSave={(val) => onTableCellChange(row.id, 'description', val)} />
                       </div>
                       <div className="flex items-center text-sm text-gray-500">
-                          <span className="mr-1" style={headingStyle}>নং:</span>
-                          <Cell className={`${editableCellClass} text-sm`} value={row.serial} onSave={(val) => onTableCellChange(row.id, 'serial', val)} />
+                          <span className="mr-1 font-bold" style={headingStyle}>নং:</span>
+                          <Cell className={`${editableCellClass} text-sm font-bold`} value={row.serial} onSave={(val) => onTableCellChange(row.id, 'serial', val)} />
                       </div>
                   </div>
                    <div className="mt-2">
-                      <label className="text-xs text-gray-500 uppercase" style={headingStyle}>পরিমান</label>
-                      <Cell className={`${editableCellClass}`} value={row.quantity} onSave={(val) => onTableCellChange(row.id, 'quantity', val)} />
+                      <label className="text-xs text-gray-500 uppercase font-bold" style={headingStyle}>পরিমান</label>
+                      <Cell className={`${editableCellClass} font-bold`} value={row.quantity} onSave={(val) => onTableCellChange(row.id, 'quantity', val)} />
                   </div>
                   <div className="mt-2">
-                      <label className="text-xs text-gray-500 uppercase" style={headingStyle}>মন্তব্য</label>
-                      <Cell className={`${editableCellClass}`} value={row.remarks} onSave={(val) => onTableCellChange(row.id, 'remarks', val)} />
+                      <label className="text-xs text-gray-500 uppercase font-bold" style={headingStyle}>মন্তব্য</label>
+                      <Cell className={`${editableCellClass} font-bold`} value={row.remarks} onSave={(val) => onTableCellChange(row.id, 'remarks', val)} />
                   </div>
                   {isEditable && 
                     <button onClick={() => onDeleteRow(row.id)} className="absolute top-2 right-2 p-2 text-red-500 rounded-full opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity hover:bg-red-100 no-print" aria-label="Delete row">

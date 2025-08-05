@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TableRow, HeaderState, FooterState, WatermarkState, ThemeState } from './types';
-import { INITIAL_TABLE_DATA } from './constants';
+import { INITIAL_TABLE_DATA, INITIAL_HEADER_STATE, INITIAL_FOOTER_STATE, INITIAL_WATERMARK_STATE, INITIAL_THEME_STATE } from './constants';
 import DocumentView from './components/DocumentView';
 import PrintPreviewModal from './components/PrintPreviewModal';
 import CustomizeModal from './components/CustomizeModal';
@@ -109,35 +109,11 @@ async function getFontCss(): Promise<string> {
 
 
 const App: React.FC = () => {
-  const [headerState, setHeaderState] = useStickyState<HeaderState>({
-    companyName: 'বলাকা ইন্টারন্যাশনাল ট্রাভেল এন্ড কার্গো',
-    address: '১১৭, নিউ হাইপার মার্কেট, বাথা, রিয়াদ',
-    tagline: 'এয়ার টিকেট এবং কার্গোর বিশ্বস্ত প্রতিষ্ঠান',
-    mobile: 'মোবাইল: 0511474705 (কার্গো), 0511476747 (টিকেট)',
-    listTitle: '২০ কেজি কার্গো মালামাল পাঠানোর লিষ্ট',
-  }, 'balaka-header');
-
+  const [headerState, setHeaderState] = useStickyState<HeaderState>(INITIAL_HEADER_STATE, 'balaka-header');
   const [tableData, setTableData] = useStickyState<TableRow[]>(INITIAL_TABLE_DATA, 'balaka-tableData');
-  
-  const [footerState, setFooterState] = useStickyState<FooterState>({
-    warning: 'বিঃদ্রঃ নিষিদ্ধ কোন পন্য পাওয়া গেলে আপনার বিরুদ্ধে আইনগতভাবে ২৫,০০০/- রিয়াল এর মামলা দায়ের করা হইবে।',
-    examples: 'উদাহরণ স্বরুপঃ মাদকদ্রব্য, পিস্তল, সোনা-দানা, পাসপোর্ট, মোবাইল ইত্যাদি।'
-  }, 'balaka-footer');
-  
-  const [watermarkState, setWatermarkState] = useStickyState<WatermarkState>({
-    topArcText: 'BALAKA INTERNATIONAL TRAVELS',
-    bottomArcText: '• CARGO •',
-    centralText: 'বলাকা',
-    show: true,
-  }, 'balaka-watermark');
-  
-  const [themeState, setThemeState] = useStickyState<ThemeState>({
-    fontFamily: "'Hind Siliguri', sans-serif",
-    headingFontFamily: "'Hind Siliguri', sans-serif",
-    accentColor: '#C00000',
-    fontSize: '16px',
-  }, 'balaka-theme');
-
+  const [footerState, setFooterState] = useStickyState<FooterState>(INITIAL_FOOTER_STATE, 'balaka-footer');
+  const [watermarkState, setWatermarkState] = useStickyState<WatermarkState>(INITIAL_WATERMARK_STATE, 'balaka-watermark');
+  const [themeState, setThemeState] = useStickyState<ThemeState>(INITIAL_THEME_STATE, 'balaka-theme');
 
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [showCustomizeModal, setShowCustomizeModal] = useState(false);
@@ -182,6 +158,14 @@ const App: React.FC = () => {
     setFooterState(newFooter);
     setWatermarkState(newWatermark);
     setThemeState(newTheme);
+  };
+
+  const handleResetAllData = () => {
+      setHeaderState(INITIAL_HEADER_STATE);
+      setTableData(INITIAL_TABLE_DATA);
+      setFooterState(INITIAL_FOOTER_STATE);
+      setWatermarkState(INITIAL_WATERMARK_STATE);
+      setThemeState(INITIAL_THEME_STATE);
   };
 
   const handleDownloadPdf = async () => {
@@ -371,6 +355,7 @@ const App: React.FC = () => {
         <CustomizeModal 
             onClose={() => setShowCustomizeModal(false)}
             onSave={handleCustomizeSave}
+            onReset={handleResetAllData}
             headerState={headerState}
             footerState={footerState}
             watermarkState={watermarkState}

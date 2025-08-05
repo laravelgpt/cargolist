@@ -5,6 +5,7 @@ import { FONT_OPTIONS } from '../constants';
 interface CustomizeModalProps {
   onClose: () => void;
   onSave: (header: HeaderState, footer: FooterState, watermark: WatermarkState, theme: ThemeState) => void;
+  onReset: () => void;
   headerState: HeaderState;
   footerState: FooterState;
   watermarkState: WatermarkState;
@@ -17,7 +18,7 @@ const CloseIcon: React.FC = () => (
     </svg>
 );
 
-const CustomizeModal: React.FC<CustomizeModalProps> = ({ onClose, onSave, headerState, footerState, watermarkState, themeState }) => {
+const CustomizeModal: React.FC<CustomizeModalProps> = ({ onClose, onSave, onReset, headerState, footerState, watermarkState, themeState }) => {
   const [currentHeader, setCurrentHeader] = useState(headerState);
   const [currentFooter, setCurrentFooter] = useState(footerState);
   const [currentWatermark, setCurrentWatermark] = useState(watermarkState);
@@ -42,6 +43,13 @@ const CustomizeModal: React.FC<CustomizeModalProps> = ({ onClose, onSave, header
   const handleSave = () => {
     onSave(currentHeader, currentFooter, currentWatermark, currentTheme);
     onClose();
+  };
+  
+  const handleResetClick = () => {
+    if (window.confirm("Are you sure you want to reset all content and settings to their original defaults? This action cannot be undone and will also reset the item list.")) {
+      onReset();
+      onClose();
+    }
   };
 
   const inputClass = "mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm";
@@ -171,13 +179,20 @@ const CustomizeModal: React.FC<CustomizeModalProps> = ({ onClose, onSave, header
         </div>
         
         {/* Modal Footer */}
-        <div className="flex items-center justify-end p-4 space-x-2 bg-white border-t border-gray-200 rounded-b-lg flex-shrink-0">
-          <button onClick={onClose} type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
-            Cancel
-          </button>
-          <button onClick={handleSave} type="button" className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-            Save Changes
-          </button>
+        <div className="flex items-center justify-between p-4 space-x-2 bg-white border-t border-gray-200 rounded-b-lg flex-shrink-0">
+          <div>
+              <button onClick={handleResetClick} type="button" className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Reset to Defaults
+              </button>
+          </div>
+          <div className="flex items-center space-x-2">
+            <button onClick={onClose} type="button" className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
+              Cancel
+            </button>
+            <button onClick={handleSave} type="button" className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              Save Changes
+            </button>
+          </div>
         </div>
       </div>
     </div>

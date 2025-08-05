@@ -1,4 +1,4 @@
-import { TableRow } from './types';
+import { TableRow, HeaderState, FooterState, WatermarkState, ThemeState } from './types';
 
 export const INITIAL_TABLE_DATA: TableRow[] = [
   { id: 1, serial: '১', description: 'কম্বল', quantity: '১ পিছ', remarks: '' },
@@ -23,6 +23,34 @@ export const INITIAL_TABLE_DATA: TableRow[] = [
   { id: 20, serial: '২০', description: 'ঘড়ি / চশমা', quantity: '২ পিছ', remarks: '' },
   { id: 21, serial: '২১', description: 'ল্যাপটপ', quantity: '১ পিছ', remarks: 'চার্জার ছাড়া দেওয়া যাবে না' },
 ];
+
+export const INITIAL_HEADER_STATE: HeaderState = {
+  companyName: 'বলাকা ইন্টারন্যাশনাল ট্রাভেল এন্ড কার্গো',
+  address: '১১৭, নিউ হাইপার মার্কেট, বাথা, রিয়াদ',
+  tagline: 'এয়ার টিকেট এবং কার্গোর বিশ্বস্ত প্রতিষ্ঠান',
+  mobile: 'মোবাইল: 0511474705 (কার্গো), 0511476747 (টিকেট)',
+  listTitle: '২০ কেজি কার্গো মালামাল পাঠানোর লিষ্ট',
+};
+
+export const INITIAL_FOOTER_STATE: FooterState = {
+  warning: 'বিঃদ্রঃ নিষিদ্ধ কোন পন্য পাওয়া গেলে আপনার বিরুদ্ধে আইনগতভাবে ২৫,০০০/- রিয়াল এর মামলা দায়ের করা হইবে।',
+  examples: 'উদাহরণ স্বরুপঃ মাদকদ্রব্য, পিস্তল, সোনা-দানা, পাসপোর্ট, মোবাইল ইত্যাদি।'
+};
+
+export const INITIAL_WATERMARK_STATE: WatermarkState = {
+  topArcText: 'BALAKA INTERNATIONAL TRAVELS',
+  bottomArcText: '• CARGO •',
+  centralText: 'বলাকা',
+  show: true,
+};
+
+export const INITIAL_THEME_STATE: ThemeState = {
+  fontFamily: "'Hind Siliguri', sans-serif",
+  headingFontFamily: "'Hind Siliguri', sans-serif",
+  accentColor: '#C00000',
+  fontSize: '16px',
+};
+
 
 export const FONT_OPTIONS = [
   { value: "'Hind Siliguri', sans-serif", label: 'Hind Siliguri (Default)' },
