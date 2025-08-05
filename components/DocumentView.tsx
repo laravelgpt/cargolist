@@ -47,11 +47,11 @@ const DocumentView: React.FC<DocumentViewProps> = ({
 
   return (
     <main id="printable-document" className="w-full max-w-4xl bg-white shadow-2xl rounded-lg p-4 sm:p-6 md:p-10 relative z-0 print:shadow-none print:border-none print:p-0 print:max-w-full">
-      <Watermark watermarkState={watermarkState} />
+      {watermarkState.show && <Watermark watermarkState={watermarkState} />}
       
       {/* Header */}
       <header className="flex flex-col sm:flex-row print:flex-row items-center justify-between gap-6 border-b-2 border-gray-300 pb-4 mb-4">
-        <HeaderLogo accentColor={themeState.accentColor} />
+        <HeaderLogo accentColor={themeState.accentColor} logoState={watermarkState} />
         <div className="text-center sm:text-right print:text-right flex-grow">
           <Cell tag="h1" style={{...headingStyle, color: themeState.accentColor}} className="text-2xl sm:text-3xl print:text-2xl font-bold" value={headerState.companyName} onSave={(val) => onHeaderChange('companyName', val)} />
           <Cell tag="p" className="text-sm text-gray-600 mt-1" value={headerState.address} onSave={(val) => onHeaderChange('address', val)} />

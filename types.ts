@@ -23,6 +23,7 @@ export interface WatermarkState {
   topArcText: string;
   bottomArcText: string;
   centralText: string;
+  show: boolean;
 }
 
 export interface ThemeState {

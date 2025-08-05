@@ -15,15 +15,15 @@ function useStickyState<T>(defaultValue: T, key: string): [T, React.Dispatch<Rea
     const [value, setValue] = useState<T>(() => {
         try {
             const stickyValue = window.localStorage.getItem(key);
-             if (key === 'balaka-watermark' && stickyValue) {
-                const parsed = JSON.parse(stickyValue);
-                if (parsed.circularText) {
-                    return defaultValue;
+            if (stickyValue) {
+                const storedValue = JSON.parse(stickyValue);
+                // If default is a non-array object, merge to handle schema changes gracefully.
+                if (typeof defaultValue === 'object' && !Array.isArray(defaultValue) && defaultValue !== null) {
+                    return { ...defaultValue, ...storedValue };
                 }
+                return storedValue;
             }
-            return stickyValue !== null
-                ? JSON.parse(stickyValue)
-                : defaultValue;
+            return defaultValue;
         } catch (error) {
             console.warn(`Error reading localStorage key “${key}”:`, error);
             return defaultValue;
@@ -128,6 +128,7 @@ const App: React.FC = () => {
     topArcText: 'BALAKA INTERNATIONAL TRAVELS',
     bottomArcText: '• CARGO •',
     centralText: 'বলাকা',
+    show: true,
   }, 'balaka-watermark');
   
   const [themeState, setThemeState] = useStickyState<ThemeState>({

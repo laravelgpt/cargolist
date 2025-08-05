@@ -31,7 +31,7 @@ const CustomizeModal: React.FC<CustomizeModalProps> = ({ onClose, onSave, header
     setCurrentFooter(prev => ({ ...prev, [field]: value }));
   };
   
-  const handleWatermarkChange = (field: keyof WatermarkState, value: string) => {
+  const handleWatermarkChange = <K extends keyof WatermarkState>(field: K, value: WatermarkState[K]) => {
     setCurrentWatermark(prev => ({ ...prev, [field]: value }));
   };
 
@@ -127,17 +127,30 @@ const CustomizeModal: React.FC<CustomizeModalProps> = ({ onClose, onSave, header
 
             {/* Watermark Section */}
             <fieldset className="bg-white p-4 rounded-lg shadow-sm mb-6">
-              <legend className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Watermark Settings</legend>
-              <div>
-                <label htmlFor="topArcText" className={labelClass}>Top Arc Text</label>
+              <legend className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Watermark &amp; Logo Settings</legend>
+              <div className="flex items-center justify-between py-2">
+                  <label htmlFor="showWatermark" className={labelClass}>Show Background Watermark</label>
+                  <div className="relative inline-flex items-center cursor-pointer">
+                      <input 
+                          type="checkbox" 
+                          id="showWatermark" 
+                          className="sr-only peer"
+                          checked={currentWatermark.show}
+                          onChange={(e) => handleWatermarkChange('show', e.target.checked)}
+                      />
+                      <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                  </div>
+              </div>
+              <div className="mt-4">
+                <label htmlFor="topArcText" className={labelClass}>Top Arc Text (Logo &amp; Watermark)</label>
                 <input id="topArcText" type="text" value={currentWatermark.topArcText} onChange={(e) => handleWatermarkChange('topArcText', e.target.value)} className={inputClass} />
               </div>
               <div className="mt-4">
-                <label htmlFor="bottomArcText" className={labelClass}>Bottom Arc Text</label>
+                <label htmlFor="bottomArcText" className={labelClass}>Bottom Arc Text (Logo &amp; Watermark)</label>
                 <input id="bottomArcText" type="text" value={currentWatermark.bottomArcText} onChange={(e) => handleWatermarkChange('bottomArcText', e.target.value)} className={inputClass} />
               </div>
               <div className="mt-4">
-                <label htmlFor="centralText" className={labelClass}>Central Text</label>
+                <label htmlFor="centralText" className={labelClass}>Central Text (Logo &amp; Watermark)</label>
                 <input id="centralText" type="text" value={currentWatermark.centralText} onChange={(e) => handleWatermarkChange('centralText', e.target.value)} className={inputClass} />
               </div>
             </fieldset>
