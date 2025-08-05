@@ -1,0 +1,6 @@
+{
+  "name": "Balaka Cargo List Generator",
+  "description": "An interactive and editable cargo list generator for Balaka International Travels & Cargo. Users can edit the company details, item list, and footer warnings directly on the page.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
